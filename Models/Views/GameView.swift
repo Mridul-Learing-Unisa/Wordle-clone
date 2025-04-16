@@ -11,6 +11,8 @@ struct GameView: View {
     @EnvironmentObject var dm: WordleDataModel
     var body: some View {
         NavigationView{
+            VStack{
+            Spacer()
             VStack(spacing: 3){
                 GuessView(guess: $dm.guesses[0])
                 GuessView(guess: $dm.guesses[1])
@@ -20,6 +22,12 @@ struct GameView: View {
                 GuessView(guess: $dm.guesses[5])
             }
             .frame(width: Global.boardWidth, height: 6 * Global.boardWidth/5, alignment: .center)
+                Spacer()
+                Keyboard()
+                    .scaleEffect(Global.keyBoardScale)
+                    .padding(2)
+                Spacer()
+            }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading){

@@ -36,4 +36,15 @@ enum Global {
             
         }
     }
+    static var keyBoardScale: CGFloat {
+        switch minDimention {
+            case 0...430:
+                return screenWidth / 375
+            
+            case 431...1000:
+                return CGFloat(1.2)
+            default :
+                return CGFloat(1.6)
+        }
+    }
 }
