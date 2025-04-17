@@ -10,7 +10,7 @@ import SwiftUI
 struct Guess {
     let index: Int
     var word: String = "     "
-    var bgColors = [Color](repeating: .systemBackground, count: 5)
+    var bgColors = [Color](repeating: .Wrong, count: 5)
     var cardFlip = [Bool](repeating: false, count: 5)
     var guessLetter: [String] {
         word.map { String($0) }
