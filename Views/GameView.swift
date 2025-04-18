@@ -10,45 +10,64 @@ import SwiftUI
 struct GameView: View {
     @EnvironmentObject var dm: WordleDataModel
     var body: some View {
-        NavigationView{
-            VStack{
-            Spacer()
-            VStack(spacing: 3){
-                ForEach(0...5, id: \.self){i in
-                    GuessView(guess: $dm.guesses[i])
-                        .modifier(Shake(animatableData: CGFloat(dm.incorrectAtempts[i])))
+        ZStack{
+            NavigationView{
+                VStack{
+                    Spacer()
+                    VStack(spacing: 3){
+                        ForEach(0...5, id: \.self){i in
+                            GuessView(guess: $dm.guesses[i])
+                                .modifier(Shake(animatableData: CGFloat(dm.incorrectAtempts[i])))
+                        }
+                    }
+                    .frame(width: Global.boardWidth, height: 6 * Global.boardWidth/5, alignment: .center)
+                    Spacer()
+                    Keyboard()
+                        .scaleEffect(Global.keyBoardScale)
+                        .padding(2)
+                    Spacer()
                 }
-            }
-            .frame(width: Global.boardWidth, height: 6 * Global.boardWidth/5, alignment: .center)
-                Spacer()
-                Keyboard()
-                    .scaleEffect(Global.keyBoardScale)
-                    .padding(2)
-                Spacer()
-            }
                 .navigationBarTitleDisplayMode(.inline)
+                .overlay(alignment: .top){
+                    if let toastText = dm.toastText {
+                        ToastView(toastText: toastText)
+                            .offset(y: 20)
+                    }
+                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading){
-                        Button{
-                            
-                        } label: {
-                            Image(systemName: "questionmark.circle")
+                        HStack{
+                            if !dm.inPlay {
+                                Button{
+                                    dm.newGame()
+                                } label: {
+                                    Text("New")
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                            Button{
+                                
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
                         }
-                        ToolbarItem(placement:.principal) {
-                            Text("WORDLE")
-                                .font(.largeTitle)
-                                .fontWeight(.heavy)
-                        }
+                    }
+                    ToolbarItem(placement:.principal) {
+                        Text("WORDLE")
+                            .font(.largeTitle)
+                            .fontWeight(.heavy)
+                    }
                     ToolbarItem(placement: .navigationBarTrailing){
                         HStack{
                             Button{
-                                
+                                withAnimation{
+                                    dm.showStats.toggle()
+                                }
                             } label: {
                                 Image(systemName: "chart.bar.fill")
                             }
                             Button{
-                                 
+                                
                             }label: {
                                 Image(systemName: "gearshape")
                             }
@@ -56,6 +75,11 @@ struct GameView: View {
                     }
                 }
             }
+            if dm.showStats {
+                StatsView()
+            }
+            
+        }
         .navigationViewStyle(.stack)
         }
     }
