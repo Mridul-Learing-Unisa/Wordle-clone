@@ -33,7 +33,7 @@ Requires **Xcode 13+** and **iOS 15+**
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Mridul-Learing-Unisa/Wordle.git
+   git clone https://github.com/Mridul-Learing-Unisa/Wordle.git](https://github.com/Mridul-Learing-Unisa/Wordle-clone.git
 
 2. open Wordle.xcodeproj
 3. Build and run on a simulator or your device.
