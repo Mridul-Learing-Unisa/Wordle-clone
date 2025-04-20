@@ -57,10 +57,11 @@ struct GameView: View {
                         }
                     } 
                     ToolbarItem(placement:.principal) {
-                        Text( " WORDLE")
+                        Text("WORDLE")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
                             .foregroundColor(dm.hardMode ? .red :.primary)
+                            .minimumScaleFactor(0.5)
                     }
                     ToolbarItem(placement: .navigationBarTrailing){
                         HStack{
